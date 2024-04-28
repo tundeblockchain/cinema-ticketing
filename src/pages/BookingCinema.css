@@ -1,0 +1,13 @@
+.date-time-pick{
+    padding-bottom: 10px
+}
+
+.btSeating{
+    margin-top: 20px;
+}
+
+.card-background{
+    background: rgb(46,19,113);
+    background: linear-gradient(42deg, rgba(46,19,113,1) 22%, rgba(9,251,211,1) 87%);
+    background: #130B2B;;
+}

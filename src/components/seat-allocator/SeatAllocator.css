@@ -1,0 +1,161 @@
+.tickets{
+    width: 550px;
+    height: fit-content;
+    border: 0.4mm solid rgba(0, 0, 0, 0.08);
+    border-radius: 3mm;
+    box-sizing: border-box;
+    padding: 10px;
+    font-family: poppins;
+    max-height: 96vh;
+    overflow: auto;
+    background: white;
+    box-shadow: 0px 25px 50px -12px rgba(0, 0, 0, 0.25);
+}
+
+.ticket-selector{
+    background: transparent;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-direction: column;
+    box-sizing: border-box;
+    padding: 20px;
+}
+
+.seats{
+    width: 100;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    min-height: 150px;
+    position: relative;
+}
+
+.status{
+    width: 100px;
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+    color: white;
+}
+
+.seats::before{
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translate(-50%, 0);
+    width: 220px;
+    height: 7px;
+    background: transparent;
+    border-radius: 0 0 3mm 3mm;
+    border-top: 0.3mm solid rgb(180, 180, 180);
+}
+
+.item{
+    font-size: 20px;
+    position: relative;
+    margin-left: 20px;
+}
+
+.item::before{
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: -12px;
+    transform: translate(0, -50%);
+    width: 10px;
+    height: 10px;
+    background: rgb(255, 255, 255);
+    outline: 0.2mm solid rgb(120, 120, 120);
+    border-radius: 0.3mm;
+}
+
+.item:nth-child(2)::before {
+    background: #B6116B;
+    outline: none;
+}
+
+.item:nth-child(3)::before {
+    background: #09FBD3;
+    outline: none;
+}
+
+.all-seats{
+    display: grid;
+    grid-template-columns: repeat(10, 1fr);
+    grid-gap: 15px;
+    margin: 60px 0;
+    margin-top: 20px;
+    position: relative;
+}
+
+.seat{
+    width: 20px;
+    height: 20px;
+    background: transparent;
+    /* border-radius: 0.5mm; */
+    /* outline: 0.3mm solid rgb(180, 180, 180); */
+    cursor: pointer;
+    content: url('../../assets/standard-seat.png');
+}
+
+.all-seats input:checked + label{
+    background: transparent;
+    content: url('../../assets/chosen-seat.png');
+    outline: none;
+}
+
+.seat.booked{
+    background: transparent;
+    content: url('../../assets/reserved-seat.png');
+    outline: none;
+}
+
+input {
+    display: none;
+}
+
+.price{
+    width: 100%;
+    box-sizing: border-box;
+    padding: 10px 20px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    color: white;
+}
+
+.total{
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: center;
+    font-size: 16px;
+    font-weight: 500;
+    color: white;
+}
+
+.total span{
+    font-size: 11px;
+    font-weight: 400;
+}
+
+.price button{
+    background: rgb(60, 60, 60);
+    color: white;
+    font-family: poppins;
+    font-size: 14px;
+    padding: 7px 14px;
+    border-radius: 2mm;
+    outline: none;
+    border: none;
+    cursor: pointer;
+}
+
+.card-top{
+    background: rgb(46,19,113);
+    background: linear-gradient(42deg, rgba(46,19,113,1) 42%, rgba(46,19,113,1) 87%);
+    background: #130B2B;
+}

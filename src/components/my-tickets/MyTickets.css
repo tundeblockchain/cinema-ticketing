@@ -1,0 +1,9 @@
+.no-tickets{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.no-tickets h1{
+    margin-top: 5%;
+}

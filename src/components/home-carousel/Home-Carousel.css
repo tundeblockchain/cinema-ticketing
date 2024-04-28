@@ -1,0 +1,37 @@
+.slideBG{
+    width: 80%;
+    align-items: center;
+    
+}
+
+.carouselItemInfo{
+    position: relative;
+    text-align: center;
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.centered {
+    position: absolute;
+    top: 65%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-size: xx-large;
+  }
+
+.bottom {
+    position: absolute;
+    top: 75%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: x-large;
+}
+
+.homeCarousel{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
