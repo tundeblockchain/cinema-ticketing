@@ -10,6 +10,7 @@ import Films from './pages/Films';
 import MyTicketsPage from './pages/MyTicketsPage';
 import { WagmiConfig, createClient, configureChains,   } from 'wagmi'
 import { avalancheFuji } from "wagmi/chains"
+import { MetaMaskConnector } from "wagmi/connectors/metaMask"
 import { publicProvider } from "wagmi/providers/public";
 import toast, { Toaster } from 'react-hot-toast';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
@@ -27,8 +28,10 @@ const metadata = {
   ]);
   document.title = 'Cinema Ticketing';
 const client = createClient({
+  connectors: [new MetaMaskConnector({chains})],
   autoConnect: true,
   provider,
+
 });
 const queryClient = new QueryClient()
 const root = ReactDOM.createRoot(

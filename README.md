@@ -20,12 +20,10 @@ There are 2 main contracts this front end project relies on
 
 # Environment Variables
 This project requires a .env file with the following variables
-- REACT_APP_IPFS_SECRET - Infura IPFS secret key
-- REACT_APP_IPFS_PROJECTID - Infura IPFS project Id
-- REACT_APP_IPFS_DEDICATED_GATEWAY - dedicated ipfs gateway url
+- REACT_APP_IPFS_DEDICATED_GATEWAY - dedicated Pinata ipfs gateway url
+- REACT_APP_PINATA_JWT - JWT token for Pinata IPFS Gateway
 - REACT_APP_CINEMA_INFO_ADDRESS - blockchain contract address of the cinema info contract
 - REACT_APP_CINEMA_MARKET_ADDRESS - blockchain contract address of the cinema market contract
-- REACT_APP_IPFS_HOST - ipfs host url
 - REACT_APP_USDC_ADDRESS - blockchain contract address of USDC contract ( this is the main currency used for transactions
 
 # Run Project

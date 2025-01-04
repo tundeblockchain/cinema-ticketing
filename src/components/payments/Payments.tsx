@@ -13,6 +13,12 @@ import toast from 'react-hot-toast';
 import { Buffer } from 'buffer';
 import { useNavigate } from 'react-router-dom';
 import { BigNumber } from 'ethers';
+import { PinataSDK } from "pinata-web3"
+
+const pinata = new PinataSDK({
+  pinataJwt: process.env.REACT_APP_PINATA_JWT,
+  pinataGateway: process.env.REACT_APP_IPFS_DEDICATED_GATEWAY
+})
 const Payments = ({seats, noOfSelectedSeats, costOfTickets, toggleStages, ticket}: {seats: string[], noOfSelectedSeats:number, costOfTickets: number, 
     toggleStages: () => void, ticket: TicketEV | undefined}) => {
         const [hasEnoughAllowance, setHasEnoughAllowance] = useState(false);
@@ -130,19 +136,22 @@ const Payments = ({seats, noOfSelectedSeats, costOfTickets, toggleStages, ticket
 
         try {
             // Add ticket info to ipfs
-            const auth = 'Basic ' + Buffer.from(process.env.REACT_APP_IPFS_PROJECTID + ':' + process.env.REACT_APP_IPFS_SECRET).toString('base64');
+            // const auth = 'Basic ' + Buffer.from(process.env.REACT_APP_IPFS_PROJECTID + ':' + process.env.REACT_APP_IPFS_SECRET).toString('base64');
 
-            const client = ipfsHttpClient({
-                host: process.env.REACT_APP_IPFS_HOST,
-                port: 5001,
-                protocol: 'https',
-                headers: {
-                    authorization: auth,
-                },
-            });
+            // const client = ipfsHttpClient({
+            //     host: process.env.REACT_APP_IPFS_HOST,
+            //     port: 5001,
+            //     protocol: 'https',
+            //     headers: {
+            //         authorization: auth,
+            //     },
+            // });
 
-            const added = await client.add(ticketJson);
-            const url = process.env.REACT_APP_IPFS_DEDICATED_GATEWAY + added.path;
+            const file = new File([ticketJson], ticket?.Id + ".json", { type: "text/plain" });
+            const upload = await pinata.upload.file(file);
+
+            //const added = await client.add(ticketJson);
+            const url = "https://" + process.env.REACT_APP_IPFS_DEDICATED_GATEWAY + "/ipfs/" + upload.IpfsHash;
             
             if (ticket != null){
                 ticket.uri = url;
