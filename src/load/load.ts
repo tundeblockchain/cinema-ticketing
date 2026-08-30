@@ -226,7 +226,7 @@ export const loadTickets = async (ticketsResults: Array<unknown>) => {
               ScreenId: element.ScreenId,
               FilmId: element.FilmId,
               PlaceName: '',
-              Price: 0,
+              Price: BigInt(0),
               Accessibiity: false,
               Seats: [],
               Type: '',
@@ -245,7 +245,7 @@ export const loadTickets = async (ticketsResults: Array<unknown>) => {
               ticketEV.ScreenId = ticketInfo.ScreenId;
               ticketEV.FilmId = ticketInfo.FilmId;
               ticketEV.PlaceName = ticketInfo.PlaceName;
-              ticketEV.Price = ticketInfo.Price;
+              ticketEV.Price = BigInt(ticketInfo.Price);
               ticketEV.Accessibiity = ticketInfo.Accessibiity;
               ticketEV.Type = ticketInfo.Type;
               ticketEV.Seats = ticketInfo.Seats;

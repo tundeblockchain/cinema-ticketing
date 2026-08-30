@@ -153,7 +153,7 @@ const BookingCinema = () => {
           FilmId: currentFilmJSON.Id,
           PlaceName: '',
           title: currentFilmJSON.Title,
-          Price: costOfTickets,
+          Price: BigInt(costOfTickets * 10 ** 6),
           Accessibiity: false,
           Seats: selectedSeats,
           Type: 'standard',

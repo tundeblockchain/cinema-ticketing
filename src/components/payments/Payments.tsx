@@ -133,7 +133,7 @@ const Payments = ({
       const url = 'https://' + import.meta.env.VITE_IPFS_DEDICATED_GATEWAY + '/ipfs/' + upload.IpfsHash;
 
       if (ticket != null) {
-        const updatedTicket = { ...ticket, uri: url, Price: costOfTickets };
+        const updatedTicket = { ...ticket, uri: url, Price: BigInt(costOfTickets * 10 ** 6) };
         setTicketWithUri(updatedTicket);
       }
       console.log(ticket);
@@ -155,7 +155,7 @@ const Payments = ({
             currentTicket.CinemaAddress,
             currentTicket.title,
             currentTicket.uri,
-            BigInt(currentTicket.Price * 10 ** 6),
+            currentTicket.Price,
             currentTicket.ScreenId,
           ],
         });
