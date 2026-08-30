@@ -9,7 +9,7 @@
   padding: 1.5rem !important;
 }
 
-.ticket-selector {
+.payments-card .ticket-selector {
   background: transparent;
   display: flex;
   flex-direction: column;
@@ -17,7 +17,7 @@
   color: var(--color-text-primary);
 }
 
-.ticket-selector h2 {
+.payments-card .ticket-selector h2 {
   font-family: 'Poppins', sans-serif;
   font-size: 1.25rem;
   font-weight: 600;
@@ -25,14 +25,14 @@
   margin-bottom: 0.75rem;
 }
 
-.ticket-selector h3 {
+.payments-card .ticket-selector h3 {
   font-size: 1rem;
   font-weight: 500;
   color: var(--color-text-secondary);
   margin: 0.25rem 0;
 }
 
-.ticket-selector h4 {
+.payments-card .ticket-selector h4 {
   font-size: 0.9375rem;
   font-weight: 500;
   color: var(--color-text-secondary);
@@ -40,7 +40,7 @@
   display: inline;
 }
 
-.ticket-selector .all-seats {
+.payments-card .all-seats {
   display: flex;
   flex-wrap: wrap;
   gap: 0.25rem;
@@ -52,14 +52,14 @@
   border: 1px solid var(--color-border);
 }
 
-.ticket-selector .all-seats h4:first-child {
+.payments-card .all-seats h4:first-child {
   width: 100%;
   margin-bottom: 0.5rem;
   color: var(--color-primary-light);
   font-weight: 600;
 }
 
-.price-payments {
+.payments-card .price-payments {
   width: 100%;
   display: flex;
   align-items: center;
@@ -69,31 +69,31 @@
   border-top: 1px solid var(--color-border);
 }
 
-.total-payments {
+.payments-card .total-payments {
   display: flex;
   flex-direction: column;
   align-items: flex-start;
 }
 
-.total-payments span {
+.payments-card .total-payments span {
   font-size: 0.875rem;
   color: var(--color-text-secondary);
 }
 
-.total-payments .count {
+.payments-card .total-payments .count {
   font-weight: 700;
   color: var(--color-primary-light);
 }
 
-.total-payments .amount {
+.payments-card .total-payments .amount {
   font-size: 1.75rem;
   font-weight: 700;
   color: var(--color-text-primary);
   margin-top: 0.25rem;
 }
 
-.price-payments button,
-.price-payments .btSeating {
+.payments-card .price-payments button,
+.payments-card .price-payments .btSeating {
   padding: 0.75rem 1.5rem;
   font-size: 1rem;
   font-weight: 600;
@@ -106,49 +106,27 @@
   box-shadow: var(--shadow-md);
 }
 
-.price-payments button:hover,
-.price-payments .btSeating:hover {
+.payments-card .price-payments button:hover,
+.payments-card .price-payments .btSeating:hover {
   transform: translateY(-2px);
   box-shadow: var(--shadow-lg), var(--shadow-glow);
 }
 
-.price-payments button:disabled {
+.payments-card .price-payments button:disabled {
   opacity: 0.6;
   cursor: not-allowed;
   transform: none;
 }
 
-.seats {
-  width: 100%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-direction: column;
-  min-height: 150px;
-  position: relative;
-}
-
-.seats::before {
-  content: '';
-  position: absolute;
-  bottom: 0;
-  left: 50%;
-  transform: translate(-50%, 0);
-  width: 220px;
-  height: 4px;
-  background: var(--gradient-accent);
-  border-radius: 2px;
-}
-
 @media (max-width: 600px) {
-  .price-payments {
+  .payments-card .price-payments {
     flex-direction: column;
     gap: 1rem;
     align-items: stretch;
   }
 
-  .price-payments button,
-  .price-payments .btSeating {
+  .payments-card .price-payments button,
+  .payments-card .price-payments .btSeating {
     width: 100%;
     text-align: center;
   }

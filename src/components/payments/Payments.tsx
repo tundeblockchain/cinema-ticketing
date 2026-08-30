@@ -174,7 +174,7 @@ const Payments = ({
   };
 
   return (
-    <Card sx={{ maxWidth: 1000 }} className='col-start-3 col-span-2'>
+    <Card sx={{ maxWidth: 1000 }} className='col-start-3 col-span-2 payments-card'>
       <CardContent className=''>
         <div className='ticket-selector'>
           <h2>Place: {ticket?.PlaceName}</h2>

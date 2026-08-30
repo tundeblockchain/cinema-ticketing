@@ -47,7 +47,7 @@ const SeatAllocator = ({setSeatsList, setNoOfSeats, setTotalCosts, toggleStages,
     // }, [initialized]);
 
     return(
-        <Card sx={{ maxWidth: 1000 }} className='col-start-3 col-span-2 '>
+        <Card sx={{ maxWidth: 1000 }} className='col-start-3 col-span-2 seat-allocator-card'>
             <CardContent className='card-top'>
                 <div className='ticket-selector'>
                     <div className='seats'>

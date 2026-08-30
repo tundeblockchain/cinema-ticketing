@@ -5,7 +5,7 @@
   box-shadow: var(--shadow-md) !important;
 }
 
-.tickets {
+.seat-allocator-card .tickets {
   width: 100%;
   max-width: 600px;
   border-radius: var(--radius-lg);
@@ -14,7 +14,7 @@
   box-shadow: var(--shadow-md);
 }
 
-.ticket-selector {
+.seat-allocator-card .ticket-selector {
   background: transparent;
   display: flex;
   align-items: center;
@@ -23,7 +23,7 @@
   padding: 1rem;
 }
 
-.seats {
+.seat-allocator-card .seats {
   width: 100%;
   display: flex;
   align-items: center;
@@ -34,7 +34,7 @@
   margin-bottom: 1rem;
 }
 
-.seats::before {
+.seat-allocator-card .seats::before {
   content: 'SCREEN';
   position: absolute;
   bottom: -10px;
@@ -52,7 +52,7 @@
   color: var(--color-primary-light);
 }
 
-.status {
+.seat-allocator-card .status {
   display: flex;
   align-items: center;
   justify-content: center;
@@ -61,7 +61,7 @@
   flex-wrap: wrap;
 }
 
-.item {
+.seat-allocator-card .item {
   font-size: 0.875rem;
   font-weight: 500;
   color: var(--color-text-secondary);
@@ -70,7 +70,7 @@
   margin-left: 0;
 }
 
-.item::before {
+.seat-allocator-card .item::before {
   content: '';
   position: absolute;
   top: 50%;
@@ -83,17 +83,17 @@
   border-radius: 3px;
 }
 
-.item:nth-child(2)::before {
+.seat-allocator-card .item:nth-child(2)::before {
   background: #ef4444;
   border-color: #ef4444;
 }
 
-.item:nth-child(3)::before {
+.seat-allocator-card .item:nth-child(3)::before {
   background: var(--color-primary);
   border-color: var(--color-primary);
 }
 
-.all-seats {
+.seat-allocator-card .all-seats {
   display: grid;
   grid-template-columns: repeat(10, 1fr);
   gap: 10px;
@@ -102,7 +102,11 @@
   padding: 0 1rem;
 }
 
-.seat {
+.seat-allocator-card .all-seats input[type="checkbox"] {
+  display: none;
+}
+
+.seat-allocator-card .seat {
   width: 24px;
   height: 24px;
   background: var(--color-surface-elevated);
@@ -113,30 +117,26 @@
   content: url('../../assets/standard-seat.png');
 }
 
-.seat:hover {
+.seat-allocator-card .seat:hover {
   border-color: var(--color-primary);
   box-shadow: 0 0 8px rgba(99, 102, 241, 0.3);
 }
 
-.all-seats input:checked + label {
+.seat-allocator-card .all-seats input:checked + label {
   background: var(--color-primary);
   border-color: var(--color-primary);
   content: url('../../assets/chosen-seat.png');
   box-shadow: 0 0 12px rgba(99, 102, 241, 0.4);
 }
 
-.seat.booked {
+.seat-allocator-card .seat.booked {
   background: #ef4444;
   border-color: #ef4444;
   cursor: not-allowed;
   content: url('../../assets/reserved-seat.png');
 }
 
-input[type="checkbox"] {
-  display: none;
-}
-
-.price {
+.seat-allocator-card .price {
   width: 100%;
   display: flex;
   align-items: center;
@@ -146,31 +146,31 @@ input[type="checkbox"] {
   margin-top: 1rem;
 }
 
-.total {
+.seat-allocator-card .total {
   display: flex;
   flex-direction: column;
   align-items: flex-start;
 }
 
-.total span {
+.seat-allocator-card .total span {
   font-size: 0.875rem;
   color: var(--color-text-secondary);
 }
 
-.total .count {
+.seat-allocator-card .total .count {
   font-weight: 700;
   color: var(--color-primary-light);
 }
 
-.total .amount {
+.seat-allocator-card .total .amount {
   font-size: 1.75rem;
   font-weight: 700;
   color: var(--color-text-primary);
   margin-top: 0.25rem;
 }
 
-.price button,
-.price .btSeating {
+.seat-allocator-card .price button,
+.seat-allocator-card .price .btSeating {
   padding: 0.75rem 1.5rem;
   font-size: 1rem;
   font-weight: 600;
@@ -183,33 +183,33 @@ input[type="checkbox"] {
   box-shadow: var(--shadow-md);
 }
 
-.price button:hover,
-.price .btSeating:hover {
+.seat-allocator-card .price button:hover,
+.seat-allocator-card .price .btSeating:hover {
   transform: translateY(-2px);
   box-shadow: var(--shadow-lg), var(--shadow-glow);
 }
 
-.card-top {
+.seat-allocator-card .card-top {
   background: var(--color-surface) !important;
   border-radius: var(--radius-lg);
 }
 
 @media (max-width: 600px) {
-  .all-seats {
+  .seat-allocator-card .all-seats {
     grid-template-columns: repeat(8, 1fr);
     gap: 8px;
   }
 
-  .seat {
+  .seat-allocator-card .seat {
     width: 20px;
     height: 20px;
   }
 
-  .status {
+  .seat-allocator-card .status {
     gap: 1rem;
   }
 
-  .item {
+  .seat-allocator-card .item {
     font-size: 0.8125rem;
   }
 }
