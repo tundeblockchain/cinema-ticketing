@@ -125,7 +125,9 @@ const Payments = ({
       ticket.Seats = seats;
     }
 
-    const ticketJson = JSON.stringify(ticket);
+    const ticketJson = JSON.stringify(ticket, (key, value) =>
+      typeof value === 'bigint' ? Number(value) / 10 ** 6 : value
+    );
 
     try {
       const file = new File([ticketJson], ticket?.Id + '.json', { type: 'text/plain' });
