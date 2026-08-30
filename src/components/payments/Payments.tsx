@@ -126,7 +126,7 @@ const Payments = ({
     }
 
     const ticketJson = JSON.stringify(ticket, (key, value) =>
-      typeof value === 'bigint' ? Number(value) / 10 ** 6 : value
+      typeof value === 'bigint' ? value.toString() : value
     );
 
     try {

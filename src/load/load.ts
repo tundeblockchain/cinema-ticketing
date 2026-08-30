@@ -245,7 +245,9 @@ export const loadTickets = async (ticketsResults: Array<unknown>) => {
               ticketEV.ScreenId = ticketInfo.ScreenId;
               ticketEV.FilmId = ticketInfo.FilmId;
               ticketEV.PlaceName = ticketInfo.PlaceName;
-              ticketEV.Price = BigInt(ticketInfo.Price);
+              ticketEV.Price = typeof ticketInfo.Price === 'string' 
+                ? BigInt(ticketInfo.Price) 
+                : BigInt(ticketInfo.Price * 10 ** 6);
               ticketEV.Accessibiity = ticketInfo.Accessibiity;
               ticketEV.Type = ticketInfo.Type;
               ticketEV.Seats = ticketInfo.Seats;
