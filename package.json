@@ -2,73 +2,65 @@
   "name": "cinema-ticketing",
   "version": "0.1.0",
   "private": true,
+  "type": "module",
+  "engines": {
+    "node": ">=20"
+  },
   "dependencies": {
-    "@emotion/react": "^11.11.4",
-    "@emotion/styled": "^11.11.0",
-    "@headlessui/react": "^1.7.18",
-    "@mui/icons-material": "^5.15.11",
-    "@mui/lab": "^5.0.0-alpha.167",
-    "@mui/x-date-pickers": "^6.19.6",
-    "@testing-library/jest-dom": "^5.17.0",
-    "@testing-library/react": "^13.4.0",
-    "@testing-library/user-event": "^13.5.0",
-    "@types/jest": "^27.5.2",
-    "@types/node": "^16.18.86",
-    "@types/react": "^18.2.61",
-    "@types/react-dom": "^18.2.19",
-    "@web3modal/ethers5": "^4.1.4",
-    "@web3modal/siwe": "^4.1.4",
-    "axios": "^1.6.8",
+    "@emotion/react": "^11.13.5",
+    "@emotion/styled": "^11.13.5",
+    "@headlessui/react": "^2.2.0",
+    "@mui/icons-material": "^6.4.0",
+    "@mui/lab": "^6.0.0-beta.21",
+    "@mui/material": "^6.4.0",
+    "@mui/x-date-pickers": "^7.24.0",
+    "@tanstack/react-query": "^5.64.0",
+    "@web3modal/wagmi": "^5.1.11",
+    "axios": "^1.7.9",
     "bootstrap": "^5.3.3",
     "buffer": "^6.0.3",
-    "dayjs": "^1.11.10",
-    "ethers": "^5.7.2",
-    "ipfs-http-client": "^60.0.1",
-    "kubo-rpc-client": "^3.0.4",
-    "particles.js": "^2.0.0",
+    "dayjs": "^1.11.13",
+    "ethers": "^6.13.5",
+    "kubo-rpc-client": "^5.0.2",
     "pinata-web3": "^0.5.4",
-    "react": "^18.2.0",
-    "react-bootstrap": "^2.10.1",
-    "react-dom": "^18.2.0",
-    "react-hot-toast": "^2.4.1",
-    "react-qr-code": "^2.0.12",
-    "react-scripts": "5.0.1",
-    "react-select": "^5.8.0",
-    "react-slick": "^0.30.2",
-    "react-spinners": "^0.13.8",
-    "tailwindcss": "^3.4.1",
-    "typescript": "^4.9.5",
-    "uuid": "^9.0.1",
-    "wagmi": "^0.12.19",
-    "web-vitals": "^2.1.4"
-  },
-  "scripts": {
-    "start": "react-scripts start",
-    "build": "react-scripts build",
-    "test": "react-scripts test",
-    "eject": "react-scripts eject"
-  },
-  "eslintConfig": {
-    "extends": [
-      "react-app",
-      "react-app/jest"
-    ]
-  },
-  "browserslist": {
-    "production": [
-      ">0.2%",
-      "not dead",
-      "not op_mini all"
-    ],
-    "development": [
-      "last 1 chrome version",
-      "last 1 firefox version",
-      "last 1 safari version"
-    ]
+    "react": "^18.3.1",
+    "react-bootstrap": "^2.10.7",
+    "react-dom": "^18.3.1",
+    "react-hot-toast": "^2.5.1",
+    "react-qr-code": "^2.0.15",
+    "react-router-dom": "^7.1.1",
+    "react-select": "^5.9.0",
+    "react-slick": "^0.30.3",
+    "react-spinners": "^0.15.0",
+    "slick-carousel": "^1.8.1",
+    "uuid": "^11.0.4",
+    "viem": "^2.22.8",
+    "wagmi": "^2.14.6"
   },
   "devDependencies": {
+    "@testing-library/dom": "^10.4.0",
+    "@testing-library/jest-dom": "^6.6.3",
+    "@testing-library/react": "^16.2.0",
+    "@testing-library/user-event": "^14.5.2",
+    "@types/node": "^22.10.5",
+    "@types/react": "^18.3.18",
+    "@types/react-dom": "^18.3.5",
     "@types/react-slick": "^0.23.13",
-    "@types/uuid": "^9.0.8",
-    "react-router-dom": "^6.22.2"
+    "@types/uuid": "^10.0.0",
+    "@vitejs/plugin-react": "^4.3.4",
+    "autoprefixer": "^10.4.20",
+    "jsdom": "^25.0.1",
+    "postcss": "^8.4.49",
+    "tailwindcss": "^3.4.17",
+    "typescript": "^5.7.3",
+    "vite": "^6.0.7",
+    "vitest": "^2.1.8"
+  },
+  "scripts": {
+    "dev": "vite",
+    "build": "tsc -b && vite build",
+    "preview": "vite preview",
+    "test": "vitest run",
+    "test:watch": "vitest"
   }
 }

@@ -1,221 +1,225 @@
-import { useState, useEffect } from 'react'
+import { useState, useEffect } from 'react';
 import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
 import '../payments/Payments.css';
 import { Button } from 'react-bootstrap';
 import { TicketEV } from '../../types/types';
-import { create as ipfsHttpClient} from 'ipfs-http-client';
 import dayjs from 'dayjs';
-import { useAccount, useContractRead, useContractWrite, usePrepareContractWrite, useWaitForTransaction } from 'wagmi';
-import CinemaMarketABI from '../../abi/CinemaMarket.json'
-import erc20ABI from '../../abi/erc20.json'
+import {
+  useAccount,
+  useReadContract,
+  useWriteContract,
+  useWaitForTransactionReceipt,
+} from 'wagmi';
+import CinemaMarketABI from '../../abi/CinemaMarket.json';
+import erc20ABI from '../../abi/erc20.json';
 import toast from 'react-hot-toast';
-import { Buffer } from 'buffer';
 import { useNavigate } from 'react-router-dom';
-import { BigNumber } from 'ethers';
-import { PinataSDK } from "pinata-web3"
+import { PinataSDK } from 'pinata-web3';
 
 const pinata = new PinataSDK({
-  pinataJwt: process.env.REACT_APP_PINATA_JWT,
-  pinataGateway: process.env.REACT_APP_IPFS_DEDICATED_GATEWAY
-})
-const Payments = ({seats, noOfSelectedSeats, costOfTickets, toggleStages, ticket}: {seats: string[], noOfSelectedSeats:number, costOfTickets: number, 
-    toggleStages: () => void, ticket: TicketEV | undefined}) => {
-        const [hasEnoughAllowance, setHasEnoughAllowance] = useState(false);
-        const [isInitialised, setInit] = useState(false);
-        const { isConnected, address } = useAccount()
-        let navigate = useNavigate(); 
-    
-    useEffect(() => {
-        async function uploadData() {
-            await uploadToIpfs();
-            setInit(true);
-        }
-    
-        if(!isLoading)
-            uploadData()
-    
-    }, [isInitialised]);
-        
+  pinataJwt: import.meta.env.VITE_PINATA_JWT,
+  pinataGateway: import.meta.env.VITE_IPFS_DEDICATED_GATEWAY,
+});
 
-    // Check Allowance
-    const checkAllowance = useContractRead({
-        address: process.env.REACT_APP_USDC_ADDRESS as `0x${string}`,
-        abi: erc20ABI,
-        functionName: 'allowance',
-        args: [address, process.env.REACT_APP_CINEMA_MARKET_ADDRESS],
-        onSuccess(data) {
-            let bn = BigNumber.from(data);
-            let allowance = bn.toNumber() / (10 ** 6)
-            let price =  costOfTickets;
-            if (price <= allowance){
-                setHasEnoughAllowance(true)
-                refetch()
-            }else{
-                setHasEnoughAllowance(false)
-            }
-        }
-    })
+const Payments = ({
+  seats,
+  noOfSelectedSeats,
+  costOfTickets,
+  toggleStages,
+  ticket,
+}: {
+  seats: string[];
+  noOfSelectedSeats: number;
+  costOfTickets: number;
+  toggleStages: () => void;
+  ticket: TicketEV | undefined;
+}) => {
+  const [hasEnoughAllowance, setHasEnoughAllowance] = useState(false);
+  const [isInitialised, setInit] = useState(false);
+  const [ticketWithUri, setTicketWithUri] = useState<TicketEV | undefined>(ticket);
+  const { isConnected, address } = useAccount();
+  const navigate = useNavigate();
 
-    // Prepare Approval Transaction
-    const approvePrepareTx = usePrepareContractWrite({
-        address: process.env.REACT_APP_USDC_ADDRESS as `0x${string}`,
-        abi: erc20ABI,
-        functionName: "approve",
-        args: [process.env.REACT_APP_CINEMA_MARKET_ADDRESS, 10000000],
-        enabled: true,
-        onSuccess(data) {
-            console.log('Successfully prepared approval')
-        },
-        onError(error) {
-            toast.dismiss()
-            toast.error('Transaction Failed')
-            console.log('Error', error)
-        },
-      });
-    
+  const { writeContract: writeApprove, data: approveHash, isPending: isApprovePending } = useWriteContract();
+  const { writeContract: writeCreateTicket, data: createTicketHash, isPending: isCreatePending } = useWriteContract();
 
-      // Prepare Create Ticket Transaction
-    const { config, refetch } = usePrepareContractWrite({
-        address: process.env.REACT_APP_CINEMA_MARKET_ADDRESS as `0x${string}`,
-        abi: CinemaMarketABI.abi,
-        functionName: 'createTicket',
-        args: [ticket?.CinemaAddress, ticket?.title, ticket?.uri, ticket?.Price, ticket?.ScreenId],
-        enabled: true,
-        onSuccess(data) {
-            console.log('Successfully prepared createTicket')
-        },
-        onError(error) {
-            console.log(ticket)
-            console.log('failed creatTicket')
-            console.log('Error', error)
-        },
-    })
+  const checkAllowance = useReadContract({
+    address: import.meta.env.VITE_USDC_ADDRESS as `0x${string}`,
+    abi: erc20ABI,
+    functionName: 'allowance',
+    args: [address, import.meta.env.VITE_CINEMA_MARKET_ADDRESS],
+    query: {
+      enabled: !!address,
+    },
+  });
 
-    const approveTx = useContractWrite(approvePrepareTx.config)
-    const { data, isLoading, isSuccess, write } = useContractWrite(config)
+  const waitApprove = useWaitForTransactionReceipt({
+    hash: approveHash,
+  });
 
-    // Wait for Approval Transaction
-    const { isLoading: waitApproveLoading } = useWaitForTransaction({ 
-        hash: approveTx.data?.hash,
-        onSuccess: () => {
-          setHasEnoughAllowance(true);
-          toast.dismiss();
-          toast.success('Approval Completed');
-          refetch();
-        },
-        onError:()=>toast.error("An Error Occurred")
-      })
+  const waitCreateTicket = useWaitForTransactionReceipt({
+    hash: createTicketHash,
+  });
 
-      // Wait for Create Ticket Transaction
-      const { isLoading: waitCreateLoading } = useWaitForTransaction({ 
-        hash: data?.hash,
-        onSuccess:()=>{
-          toast.dismiss();
-          toast.success('Ticket Created Successfully');
-          navigate('/')
-        },
-        onError:()=>toast.error("An Error Occurred")
-      })
-    
-    const approve = () => {
-        // initiate blockchain payment
-        if(approveTx.write){
-            toast.loading('Approving...');
-            approveTx.write();
-        }else{
-            console.log('Approval not ready')
-        }
+  useEffect(() => {
+    if (checkAllowance.data !== undefined) {
+      const allowance = Number(checkAllowance.data) / 10 ** 6;
+      const price = costOfTickets;
+      if (price <= allowance) {
+        setHasEnoughAllowance(true);
+      } else {
+        setHasEnoughAllowance(false);
+      }
+    }
+  }, [checkAllowance.data, costOfTickets]);
+
+  useEffect(() => {
+    async function uploadData() {
+      await uploadToIpfs();
+      setInit(true);
     }
 
-    const uploadToIpfs = async () => {
-        if (ticket != null)
-            ticket.Seats = seats;
+    if (!checkAllowance.isLoading && !isInitialised) {
+      uploadData();
+    }
+  }, [checkAllowance.isLoading, isInitialised]);
 
-        let ticketJson = JSON.stringify(ticket);
+  useEffect(() => {
+    if (waitApprove.isSuccess) {
+      setHasEnoughAllowance(true);
+      toast.dismiss();
+      toast.success('Approval Completed');
+      checkAllowance.refetch();
+    }
+    if (waitApprove.isError) {
+      toast.dismiss();
+      toast.error('An Error Occurred');
+    }
+  }, [waitApprove.isSuccess, waitApprove.isError]);
 
-        try {
-            // Add ticket info to ipfs
-            // const auth = 'Basic ' + Buffer.from(process.env.REACT_APP_IPFS_PROJECTID + ':' + process.env.REACT_APP_IPFS_SECRET).toString('base64');
+  useEffect(() => {
+    if (waitCreateTicket.isSuccess) {
+      toast.dismiss();
+      toast.success('Ticket Created Successfully');
+      navigate('/');
+    }
+    if (waitCreateTicket.isError) {
+      toast.dismiss();
+      toast.error('An Error Occurred');
+    }
+  }, [waitCreateTicket.isSuccess, waitCreateTicket.isError, navigate]);
 
-            // const client = ipfsHttpClient({
-            //     host: process.env.REACT_APP_IPFS_HOST,
-            //     port: 5001,
-            //     protocol: 'https',
-            //     headers: {
-            //         authorization: auth,
-            //     },
-            // });
+  const approve = () => {
+    toast.loading('Approving...');
+    writeApprove({
+      address: import.meta.env.VITE_USDC_ADDRESS as `0x${string}`,
+      abi: erc20ABI,
+      functionName: 'approve',
+      args: [import.meta.env.VITE_CINEMA_MARKET_ADDRESS, BigInt(10000000)],
+    });
+  };
 
-            const file = new File([ticketJson], ticket?.Id + ".json", { type: "text/plain" });
-            const upload = await pinata.upload.file(file);
-
-            //const added = await client.add(ticketJson);
-            const url = "https://" + process.env.REACT_APP_IPFS_DEDICATED_GATEWAY + "/ipfs/" + upload.IpfsHash;
-            
-            if (ticket != null){
-                ticket.uri = url;
-                ticket.Price = costOfTickets;
-            }
-            console.log(ticket)
-        }catch(err){
-            console.log(err)
-        }
+  const uploadToIpfs = async () => {
+    if (ticket == null) {
+      return;
     }
 
-    const completePayment = async () => {
-        try {
-            // initiate blockchain payment
-            if(write){
-                toast.loading('Buying Ticket...');
-                write();
-            }else{
-                console.log('Create Ticket not ready')
-            }
-        }catch(err){
-            console.log(err)
-        }
+    const ticketToUpload = {
+      ...ticket,
+      Seats: seats,
+      Price: BigInt(costOfTickets * 10 ** 6),
+    };
+
+    const ticketJson = JSON.stringify(ticketToUpload, (key, value) =>
+      typeof value === 'bigint' ? value.toString() : value
+    );
+
+    try {
+      const file = new File([ticketJson], ticket.Id + '.json', { type: 'text/plain' });
+      const upload = await pinata.upload.file(file);
+      const url = 'https://' + import.meta.env.VITE_IPFS_DEDICATED_GATEWAY + '/ipfs/' + upload.IpfsHash;
+
+      const updatedTicket = { ...ticketToUpload, uri: url };
+      setTicketWithUri(updatedTicket);
+      console.log(updatedTicket);
+    } catch (err) {
+      console.log(err);
     }
-    return(
-        <Card sx={{ maxWidth: 1000 }} className='col-start-3 col-span-2'>
-            <CardContent className=''>
-                <div className='ticket-selector'>
-                    <h2>Place: {ticket?.PlaceName}</h2>
-                    <h3>Date: { dayjs(ticket?.datetime).format('DD-MM-YYYY')}</h3>
-                    <h3>Time: { dayjs(ticket?.datetime).format('HH:mm')}</h3>
-                    <div className='all-seats'>
-                        <h4>Seats</h4>
-                        {seats.map((seat, index) => (
-                            <div key={'s' + index}>
-                                <h4>{seat.toUpperCase()}, </h4>
-                            </div>
-                        ))}
-                    </div>      
-                    <div className='price-payments'>
-                        <div className='total-payments'>
-                            <span>
-                                <span className='count'>{noOfSelectedSeats}</span> Tickets
-                            </span>
-                            <div className='amount'>£{costOfTickets}</div>
-                        </div>
-                        {/* Only allow user to pay for tickets if they have enough allow */}
-                        {hasEnoughAllowance && 
-                            <Button variant="primary" className='btSeating pt-0.5' onClick={completePayment}>
-                            Pay Now
-                            </Button>
-                        }
-                        {/* If user does not have enough allowance display the approval button */}
-                        {!hasEnoughAllowance &&
-                            <Button variant="primary" className='btSeating pt-0.5' onClick={approve}>
-                                Approve
-                            </Button>
-                        }
-                        
-                    </div>
-                </div>
-            </CardContent>
-        </Card>
-    )
-}
+  };
+
+  const completePayment = async () => {
+    try {
+      const currentTicket = ticketWithUri || ticket;
+      if (currentTicket) {
+        toast.loading('Buying Ticket...');
+        writeCreateTicket({
+          address: import.meta.env.VITE_CINEMA_MARKET_ADDRESS as `0x${string}`,
+          abi: CinemaMarketABI.abi,
+          functionName: 'createTicket',
+          args: [
+            currentTicket.CinemaAddress,
+            currentTicket.title,
+            currentTicket.uri,
+            currentTicket.Price,
+            currentTicket.ScreenId,
+          ],
+        });
+      } else {
+        console.log('Create Ticket not ready');
+      }
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
+  return (
+    <Card sx={{ maxWidth: 1000 }} className='col-start-3 col-span-2'>
+      <CardContent className=''>
+        <div className='ticket-selector'>
+          <h2>Place: {ticket?.PlaceName}</h2>
+          <h3>Date: {dayjs(ticket?.datetime).format('DD-MM-YYYY')}</h3>
+          <h3>Time: {dayjs(ticket?.datetime).format('HH:mm')}</h3>
+          <div className='all-seats'>
+            <h4>Seats</h4>
+            {seats.map((seat, index) => (
+              <div key={'s' + index}>
+                <h4>{seat.toUpperCase()}, </h4>
+              </div>
+            ))}
+          </div>
+          <div className='price-payments'>
+            <div className='total-payments'>
+              <span>
+                <span className='count'>{noOfSelectedSeats}</span> Tickets
+              </span>
+              <div className='amount'>£{costOfTickets}</div>
+            </div>
+            {hasEnoughAllowance && (
+              <Button
+                variant="primary"
+                className='btSeating pt-0.5'
+                onClick={completePayment}
+                disabled={isCreatePending || waitCreateTicket.isLoading}
+              >
+                Pay Now
+              </Button>
+            )}
+            {!hasEnoughAllowance && (
+              <Button
+                variant="primary"
+                className='btSeating pt-0.5'
+                onClick={approve}
+                disabled={isApprovePending || waitApprove.isLoading}
+              >
+                Approve
+              </Button>
+            )}
+          </div>
+        </div>
+      </CardContent>
+    </Card>
+  );
+};
 
 export default Payments;

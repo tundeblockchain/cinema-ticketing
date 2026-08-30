@@ -47,7 +47,7 @@ const MyTickets = ({loading, tickets}:{loading:boolean, tickets: TicketEV[]}) =>
                                             <span>
                                                 <span className='count'>{ticket.Seats.length}</span> Tickets
                                             </span>
-                                            <div className='amount'>£{ticket.Price}</div>
+                                            <div className='amount'>£{Number(ticket.Price) / 10 ** 6}</div>
                                         </div>
                                     </div>
                                 </div>

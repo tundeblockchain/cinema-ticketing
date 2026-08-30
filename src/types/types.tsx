@@ -79,7 +79,7 @@ export type TicketEV = {
     FilmId: string;
     PlaceName: string;
     title: string;
-    Price: number;
+    Price: bigint;
     Accessibiity: boolean;
     Seats: string[];
     Type: string;
