@@ -155,7 +155,7 @@ const Payments = ({
             currentTicket.CinemaAddress,
             currentTicket.title,
             currentTicket.uri,
-            currentTicket.Price,
+            BigInt(currentTicket.Price * 10 ** 6),
             currentTicket.ScreenId,
           ],
         });
