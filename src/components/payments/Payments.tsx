@@ -121,24 +121,28 @@ const Payments = ({
   };
 
   const uploadToIpfs = async () => {
-    if (ticket != null) {
-      ticket.Seats = seats;
+    if (ticket == null) {
+      return;
     }
 
-    const ticketJson = JSON.stringify(ticket, (key, value) =>
+    const ticketToUpload = {
+      ...ticket,
+      Seats: seats,
+      Price: BigInt(costOfTickets * 10 ** 6),
+    };
+
+    const ticketJson = JSON.stringify(ticketToUpload, (key, value) =>
       typeof value === 'bigint' ? value.toString() : value
     );
 
     try {
-      const file = new File([ticketJson], ticket?.Id + '.json', { type: 'text/plain' });
+      const file = new File([ticketJson], ticket.Id + '.json', { type: 'text/plain' });
       const upload = await pinata.upload.file(file);
       const url = 'https://' + import.meta.env.VITE_IPFS_DEDICATED_GATEWAY + '/ipfs/' + upload.IpfsHash;
 
-      if (ticket != null) {
-        const updatedTicket = { ...ticket, uri: url, Price: BigInt(costOfTickets * 10 ** 6) };
-        setTicketWithUri(updatedTicket);
-      }
-      console.log(ticket);
+      const updatedTicket = { ...ticketToUpload, uri: url };
+      setTicketWithUri(updatedTicket);
+      console.log(updatedTicket);
     } catch (err) {
       console.log(err);
     }
