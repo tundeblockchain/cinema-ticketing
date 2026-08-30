@@ -10,7 +10,7 @@ You are working in a React frontend codebase for NFT cinema ticketing on Avalanc
 
 This project uses CinemaInfo and CinemaMarket contracts, Pinata/IPFS for metadata storage, and USDC payments. Follow the existing project architecture, conventions, package manager, TypeScript configuration, linting rules, testing framework, and styling approach. Do not introduce a new library or architectural pattern unless the task requires it and the benefit clearly outweighs the added complexity.
 
-> **Note:** This file defines TARGET-STATE conventions for Vite 6 / React 19. The codebase currently uses CRA 5 / React 18. Until CINEMA-3 migrates to Vite, commands like `npm run dev` and `import.meta.env` will not work; use `npm start` and `process.env.REACT_APP_*` respectively. After CINEMA-3, these rules apply directly.
+> **Note:** This file defines conventions for Vite 6 / React 19. After CINEMA-3, the codebase uses Vite with `npm run dev` and `import.meta.env.VITE_*` for environment variables.
 
 ## Core priorities
 
@@ -194,9 +194,7 @@ Do not create an effect-based request waterfall when requests can run concurrent
 
 ## Environment variables
 
-**Target state (after CINEMA-3):** Use `import.meta.env.VITE_*` for environment variables.
-
-**Current state:** The codebase uses CRA's `process.env.REACT_APP_*` pattern. Continue using that pattern until CINEMA-3 migrates to Vite.
+Use `import.meta.env.VITE_*` for environment variables. See `.env.example` for required variables.
 
 Do not commit secrets or API keys to the repository.
 
@@ -294,7 +292,7 @@ Tests are encouraged but not required on every change. Current test coverage is 
 
 When adding or updating tests:
 
-* Use the project's existing test runner (Jest with CRA; Vitest after CINEMA-3).
+* Use Vitest for testing.
 * Prefer React Testing Library for component behavior and `user-event` for interactions.
 * Tests should resemble how users use the interface.
 
@@ -391,20 +389,10 @@ Do not modify lockfiles manually.
 
 After implementing a change, run the relevant available checks:
 
-**Target state (after CINEMA-3):**
-
 ```bash
 npm run dev      # Start Vite dev server
 npm run build    # Production build
 npm test         # Vitest
-```
-
-**Current state (CRA):**
-
-```bash
-npm start        # Start CRA dev server
-npm run build    # Production build
-npm test         # Jest
 ```
 
 Use the commands defined by the repository rather than inventing alternatives.

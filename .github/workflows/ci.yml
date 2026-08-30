@@ -1,0 +1,40 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  build-and-test:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Run tests
+        run: npm test
+
+      - name: Build
+        run: npm run build
+        env:
+          VITE_IPFS_DEDICATED_GATEWAY: ${{ secrets.VITE_IPFS_DEDICATED_GATEWAY || 'placeholder.mypinata.cloud' }}
+          VITE_PINATA_JWT: ${{ secrets.VITE_PINATA_JWT || 'placeholder_jwt' }}
+          VITE_CINEMA_INFO_ADDRESS: ${{ secrets.VITE_CINEMA_INFO_ADDRESS || '0x0000000000000000000000000000000000000000' }}
+          VITE_CINEMA_MARKET_ADDRESS: ${{ secrets.VITE_CINEMA_MARKET_ADDRESS || '0x0000000000000000000000000000000000000000' }}
+          VITE_USDC_ADDRESS: ${{ secrets.VITE_USDC_ADDRESS || '0x0000000000000000000000000000000000000000' }}
+
+      - name: Audit (informational)
+        run: npm audit --audit-level=none || true
+        continue-on-error: true

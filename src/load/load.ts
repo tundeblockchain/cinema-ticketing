@@ -1,13 +1,46 @@
 import axios from "axios";
 import { DirectorEV, FilmEV, PlaceEV, WriterEV, CinemaEV, TicketEV, ScreenEV, ScreenTime, TicketStatus } from "../types/types";
 
-export const loadFilms = async (filmResults: Array<any>) => {
-    let films: Array<FilmEV> = [];
+interface FilmResult {
+  itemID: string;
+  title: string;
+  uri: string;
+}
+
+interface PlaceResult {
+  itemID: string;
+  uri: string;
+}
+
+interface ScreenResult {
+  itemID: string;
+  placeId: string;
+  uri: string;
+}
+
+interface CinemaResult {
+  itemID: string;
+  name: string;
+  cinemaAddress: string;
+  uri: string;
+}
+
+interface TicketResult {
+  itemID: string;
+  PlaceId: string;
+  CinemaId: string;
+  ScreenId: string;
+  FilmId: string;
+  uri: string;
+}
+
+export const loadFilms = async (filmResults: Array<unknown>) => {
+    const films: Array<FilmEV> = [];
     
     for(let i = 0; i <= filmResults.length; i++){
-        let element = filmResults[i];
+        const element = filmResults[i] as FilmResult | undefined;
         if (element != null){
-            let filmEV: FilmEV = {
+            const filmEV: FilmEV = {
                 Id: element.itemID,
                 Title: element.title,
                 Description: '',
@@ -22,42 +55,42 @@ export const loadFilms = async (filmResults: Array<any>) => {
     
             if (filmEV.uri != null){
               try{
-                let response = await axios.get(filmEV.uri);
-                let filmInfo = response.data;
+                const response = await axios.get(filmEV.uri);
+                const filmInfo = response.data;
                 filmEV.Year = filmInfo.Year;
                 filmEV.ImageUri = filmInfo.ImageUri;
                 filmEV.Description = filmInfo.Description;
                 filmEV.AlternativeImageUri = filmInfo.AlternativeImageUri;
 
                 // Load Directors
-                for(let i = 0; i < filmInfo.Directors.length; i++){
-                  let director: DirectorEV = {
-                    Id: filmInfo.Directors[i].DirectorId,
-                    Name: filmInfo.Directors[i].Name,
-                    Height: filmInfo.Directors[i].Height,
-                    DOB: filmInfo.Directors[i].DOB
+                for(let j = 0; j < filmInfo.Directors.length; j++){
+                  const director: DirectorEV = {
+                    Id: filmInfo.Directors[j].DirectorId,
+                    Name: filmInfo.Directors[j].Name,
+                    Height: filmInfo.Directors[j].Height,
+                    DOB: filmInfo.Directors[j].DOB
                   }
                   filmEV.Directors.push(director);
                 }
       
                 // Load Writers
-                for(let i = 0; i < filmInfo.Writers.length; i++){
-                  let writer: WriterEV = {
-                    Id: filmInfo.Writers[i].DirectorId,
-                    Name: filmInfo.Writers[i].Name,
-                    Height: filmInfo.Writers[i].Height,
-                    DOB: filmInfo.Writers[i].DOB
+                for(let j = 0; j < filmInfo.Writers.length; j++){
+                  const writer: WriterEV = {
+                    Id: filmInfo.Writers[j].DirectorId,
+                    Name: filmInfo.Writers[j].Name,
+                    Height: filmInfo.Writers[j].Height,
+                    DOB: filmInfo.Writers[j].DOB
                   }
                   filmEV.Writers.push(writer);
                 }
       
                 // Load Actors
-                for(let i = 0; i < filmInfo.Actors.length; i++){
-                  let actor: WriterEV = {
-                    Id: filmInfo.Actors[i].ActorId,
-                    Name: filmInfo.Actors[i].Name,
-                    Height: filmInfo.Actors[i].Height,
-                    DOB: filmInfo.Actors[i].DOB
+                for(let j = 0; j < filmInfo.Actors.length; j++){
+                  const actor: WriterEV = {
+                    Id: filmInfo.Actors[j].ActorId,
+                    Name: filmInfo.Actors[j].Name,
+                    Height: filmInfo.Actors[j].Height,
+                    DOB: filmInfo.Actors[j].DOB
                   }
                   filmEV.Actors.push(actor);
                 }
@@ -73,13 +106,13 @@ export const loadFilms = async (filmResults: Array<any>) => {
     return films;
   }
 
-export const loadPlaces = async (placeResults: Array<any>) => {
-    let places: Array<PlaceEV> = [];
+export const loadPlaces = async (placeResults: Array<unknown>) => {
+    const places: Array<PlaceEV> = [];
 
     for(let i = 0; i <= placeResults.length; i++){
-        let element = placeResults[i];
+        const element = placeResults[i] as PlaceResult | undefined;
         if (element != null){
-            let placeEV: PlaceEV = {
+            const placeEV: PlaceEV = {
                 Id: element.itemID,
                 CinemaId: '',
                 Name: '',
@@ -92,8 +125,8 @@ export const loadPlaces = async (placeResults: Array<any>) => {
 
             try{
               if (placeEV.uri != null){
-                let response = await axios.get(placeEV.uri);
-                let placeInfo = response.data;
+                const response = await axios.get(placeEV.uri);
+                const placeInfo = response.data;
                 placeEV.CinemaId = placeInfo.CinemaId;
                 placeEV.Name = placeInfo.Name;
                 placeEV.City = placeInfo.City;
@@ -114,12 +147,12 @@ export const loadPlaces = async (placeResults: Array<any>) => {
     return places;
 }
 
-export const loadScreens = async (screenResults: Array<any>) => {
-  let screens: Array<ScreenEV> = [];
+export const loadScreens = async (screenResults: Array<unknown>) => {
+  const screens: Array<ScreenEV> = [];
   for(let i = 0; i <= screenResults.length; i++){
-      let element = screenResults[i];
+      const element = screenResults[i] as ScreenResult | undefined;
       if (element != null){
-          let screenEV: ScreenEV = {
+          const screenEV: ScreenEV = {
               Id: element.itemID,
               PlaceId: element.placeId,
               ScreenNumber: 0,
@@ -134,8 +167,8 @@ export const loadScreens = async (screenResults: Array<any>) => {
 
           if (screenEV.uri != null){
               try{
-                let response = await axios.get(screenEV.uri);
-                let screenInfo = response.data;
+                const response = await axios.get(screenEV.uri);
+                const screenInfo = response.data;
                 screenEV.ScreenNumber = screenInfo.ScreenNumber;
                 screenEV.IMAX = screenInfo.IMAX;
                 screenEV.IMAXAudio = screenInfo.IMAXAudio;
@@ -159,13 +192,13 @@ export const loadScreens = async (screenResults: Array<any>) => {
   return screens;
 }
 
-export const loadCinemas = async (cinemaResults: Array<any>) => {
-  let cinemas: Array<CinemaEV> = [];
+export const loadCinemas = async (cinemaResults: Array<unknown>) => {
+  const cinemas: Array<CinemaEV> = [];
 
   for(let i = 0; i <= cinemaResults.length; i++){
-      let element = cinemaResults[i];
+      const element = cinemaResults[i] as CinemaResult | undefined;
       if (element != null){
-          let cinemaEV: CinemaEV = {
+          const cinemaEV: CinemaEV = {
               Id: element.itemID,
               Name: element.name,
               CinemaAddress: element.cinemaAddress,
@@ -179,13 +212,13 @@ export const loadCinemas = async (cinemaResults: Array<any>) => {
   return cinemas;
 }
 
-export const loadTickets = async (ticketsResults: Array<any>) => {
-  let tickets: Array<TicketEV> = [];
+export const loadTickets = async (ticketsResults: Array<unknown>) => {
+  const tickets: Array<TicketEV> = [];
   console.log(ticketsResults)
   for(let i = 0; i <= ticketsResults.length; i++){
-      let element = ticketsResults[i];
+      const element = ticketsResults[i] as TicketResult | undefined;
       if (element != null){
-          let ticketEV: TicketEV = {
+          const ticketEV: TicketEV = {
               Id: element.itemID,
               PlaceId: element.PlaceId,
               CinemaId: element.CinemaId,
@@ -203,10 +236,10 @@ export const loadTickets = async (ticketsResults: Array<any>) => {
               Status: TicketStatus.Pending
           }
 
-          if (ticketEV.uri != null && ticketEV.uri != ''){
+          if (ticketEV.uri != null && ticketEV.uri !== ''){
             try{
-              let response = await axios.get(ticketEV.uri);
-              let ticketInfo = response.data;
+              const response = await axios.get(ticketEV.uri);
+              const ticketInfo = response.data;
               ticketEV.CinemaId = ticketInfo.CinemaId;
               ticketEV.CinemaAddress = ticketInfo.CinemaAddress;
               ticketEV.ScreenId = ticketInfo.ScreenId;
@@ -218,7 +251,7 @@ export const loadTickets = async (ticketsResults: Array<any>) => {
               ticketEV.Seats = ticketInfo.Seats;
               ticketEV.title = ticketInfo.title;
               ticketEV.datetime = ticketInfo.datetime;
-              ticketEV.Status = <TicketStatus>ticketInfo.Status;
+              ticketEV.Status = ticketInfo.Status as TicketStatus;
               tickets.push(ticketEV)
             }catch(err){
               console.log(err)

@@ -1,31 +1,98 @@
 # cinema-ticketing
- React front end up for cinema ticketing system
- 
-This is a proof of concept and it is NOT production ready.
-This is a react front end project which uses blockchain to issue and maintain cinema tickets on the Avalanche testnet.
 
-The webapp consists of the following pages
-- Home Page
-- Films Page (Lists all films in cinemas)
-- Film Info Page (Details about selected film)
-- My Tickets Page (Displays all ticjets held by connected address)
-- Booking Page (handles booking tickets and payments)
+React front end for cinema ticketing system using blockchain on Avalanche testnet.
 
-The project relies on blockchain contracts created on this project
-https://github.com/tundeblockchain/cinema-ticketing-backend.git
+This is a proof of concept and is NOT production ready.
 
-There are 2 main contracts this front end project relies on
--  CinemaInfo which handles all cinema info such as cinema chains, locations, screens, films and actors
--  CinemaMarket which handles the ticket transactions
+This project uses Vite, React 19, TypeScript 5, and wagmi v2 with viem for Web3 interactions.
 
-# Environment Variables
-This project requires a .env file with the following variables
-- REACT_APP_IPFS_DEDICATED_GATEWAY - dedicated Pinata ipfs gateway url
-- REACT_APP_PINATA_JWT - JWT token for Pinata IPFS Gateway
-- REACT_APP_CINEMA_INFO_ADDRESS - blockchain contract address of the cinema info contract
-- REACT_APP_CINEMA_MARKET_ADDRESS - blockchain contract address of the cinema market contract
-- REACT_APP_USDC_ADDRESS - blockchain contract address of USDC contract ( this is the main currency used for transactions
+## Pages
 
-# Run Project
-- first install all dependencies using npm install
-- run 'npm run start' command to start the project
+- **Home Page** - Landing page with featured films
+- **Films Page** - Lists all films in cinemas
+- **Film Info Page** - Details about selected film
+- **My Tickets Page** - Displays all tickets held by connected address
+- **Booking Page** - Handles booking tickets and payments
+
+## Smart Contracts
+
+The project relies on blockchain contracts from [cinema-ticketing-backend](https://github.com/tundeblockchain/cinema-ticketing-backend.git).
+
+- **CinemaInfo** - Handles cinema info: chains, locations, screens, films, actors
+- **CinemaMarket** - Handles ticket transactions and NFT minting
+
+## Environment Variables
+
+Create a `.env` file with the following variables (see `.env.example`):
+
+```bash
+# Pinata IPFS Configuration
+VITE_IPFS_DEDICATED_GATEWAY=your-gateway.mypinata.cloud
+VITE_PINATA_JWT=your_pinata_jwt_token
+
+# Smart Contract Addresses (Avalanche Fuji Testnet)
+VITE_CINEMA_INFO_ADDRESS=0x...
+VITE_CINEMA_MARKET_ADDRESS=0x...
+VITE_USDC_ADDRESS=0x...
+```
+
+## Development
+
+### Prerequisites
+
+- Node.js 20 or later
+
+### Install dependencies
+
+```bash
+npm install
+```
+
+### Start development server
+
+```bash
+npm run dev
+```
+
+The app will open at http://localhost:3000.
+
+### Build for production
+
+```bash
+npm run build
+```
+
+### Preview production build
+
+```bash
+npm run preview
+```
+
+### Run tests
+
+```bash
+npm test
+```
+
+Or in watch mode:
+
+```bash
+npm run test:watch
+```
+
+## Tech Stack
+
+- **Vite 6** - Build tool
+- **React 19** - UI framework
+- **TypeScript 5** - Type safety
+- **wagmi v2 + viem** - Ethereum interactions
+- **ethers v6** - Ethereum utilities
+- **TanStack Query** - Data fetching
+- **Tailwind CSS 3** - Utility-first CSS
+- **Bootstrap 5 + React Bootstrap** - UI components
+- **MUI v6** - Material UI components
+- **Headless UI 2** - Unstyled accessible components
+- **React Router 7** - Client-side routing
+- **Pinata SDK** - IPFS integration
+- **Vitest** - Test runner
+- **React Testing Library** - Component testing
