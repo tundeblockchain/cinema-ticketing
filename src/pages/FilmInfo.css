@@ -1,83 +1,161 @@
-.topSection{
-    top: 40%;
-    background: transparent;
+.filmInfo {
+  min-height: calc(100vh - 80px);
+  padding: 3rem 2rem;
+  max-width: 1400px;
+  margin: 0 auto;
+}
+
+.filmInfo .topSection {
+  display: none;
+}
+
+.filmInfo .film-layout {
+  display: grid;
+  grid-template-columns: 320px 1fr;
+  gap: 3rem;
+  align-items: start;
+}
+
+.filmInfo .midLeft {
+  position: sticky;
+  top: 100px;
+}
+
+.filmInfo .midLeft .cards {
+  width: 100%;
+  max-width: 320px;
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  transition: all var(--transition-normal);
+  box-shadow: var(--shadow-lg);
+  margin: 0;
+}
+
+.filmInfo .midLeft .cards:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-lg), 0 0 40px rgba(99, 102, 241, 0.2);
+  border-color: rgba(99, 102, 241, 0.3);
+}
+
+.filmInfo .midLeft .cards .card-img-top {
+  width: 100%;
+  height: auto;
+  object-fit: cover;
+}
+
+.filmInfo .midLeft .cards-body {
+  background: var(--gradient-primary);
+  border: none;
+  padding: 1rem;
+  box-shadow: none;
+  text-align: center;
+}
+
+.filmInfo .midLeft .card-title {
+  font-family: 'Poppins', sans-serif;
+  font-size: 1rem;
+  font-weight: 600;
+  color: white;
+  margin: 0;
+}
+
+.filmInfo .midRight {
+  padding: 0;
+  width: 100%;
+}
+
+.filmInfo .midRight .cards {
+  width: 100%;
+  max-width: 100%;
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  box-shadow: var(--shadow-md);
+  margin: 0;
+}
+
+.filmInfo .midRight .cards-body {
+  padding: 2rem;
+  background: transparent;
+  border: none;
+  box-shadow: none;
+}
+
+.filmInfo .midRight h1 {
+  font-family: 'Poppins', sans-serif;
+  font-size: 2.5rem;
+  font-weight: 700;
+  background: var(--gradient-primary);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  margin-bottom: 2rem;
+  padding-bottom: 1rem;
+  border-bottom: 1px solid var(--color-border);
+}
+
+.filmInfo .midRight h3 {
+  font-family: 'Poppins', sans-serif;
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--color-primary-light);
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  margin: 1.5rem 0 0.75rem;
+}
+
+.filmInfo .midRight h3:first-of-type {
+  margin-top: 0;
+}
+
+.filmInfo .midRight p {
+  font-size: 1rem;
+  color: var(--color-text-secondary);
+  margin: 0 0 0.25rem;
+  line-height: 1.7;
+  display: inline;
+}
+
+.filmInfo .film-meta-section {
+  margin-bottom: 1.5rem;
+  padding-bottom: 1.5rem;
+  border-bottom: 1px solid var(--color-border);
+}
+
+.filmInfo .film-meta-section:last-child {
+  border-bottom: none;
+  padding-bottom: 0;
+}
+
+.film-times {
+  margin-top: 1.5rem;
+}
+
+@media (max-width: 900px) {
+  .filmInfo {
+    padding: 2rem 1rem;
+  }
+
+  .filmInfo .film-layout {
+    grid-template-columns: 1fr;
+    gap: 2rem;
+  }
+
+  .filmInfo .midLeft {
+    position: static;
     display: flex;
-    align-items: center;
     justify-content: center;
-}
+  }
 
-.mainBG{
-    height: 50%;
-    width: 50%;
-    object-fit: cover;
-    
-}
+  .filmInfo .midLeft .cards {
+    max-width: 280px;
+  }
 
-.midLeft{
-    display: inline-block;
-    
-}
-
-.midRight{
-    padding-left: 5%;
-    display: inline-block;
-    width: 70%;
-    color: white;
-}
-
-.midSection{
-    flex: 1;
-}
-
-.cards{
-    background: transparent;
-}
-
-.btFilmInfo{
-    margin-left: 30%;
-}
-
-Link{
-    color: white;
-}
-
-.cards {
-    display: inline-block;
-    margin: 10px 20px;
-    font-size: 18px;
-    cursor: pointer;
-    color: white;
-    box-shadow: 0px 25px 50px -12px rgba(0, 0, 0, 0.25);
-    border: 0.4mm solid rgba(0, 0, 0, 0.08);
-    border-radius: 3mm;
-}
-
-.topFilms{
+  .filmInfo .midRight h1 {
+    font-size: 1.75rem;
     text-align: center;
-    margin-top: 10px;
-}
-
-.cards-body{
-    box-shadow: 0px 25px 50px -12px rgba(0, 0, 0, 0.25);
-    border: 0.4mm solid rgba(0, 0, 0, 0.08);
-    border-radius: 0 0 3mm 3mm;
-    font-size: larger;
-    justify-content: center;
-    align-items: center;
-    font-size: larger;
-}
-
-.card-title{
-    justify-content: center;
-    align-items: center;
-    font-size: larger;
-    text-align: center;
-}
-
-.filmInfo{
-    background-color: #130B2B;
-}
-
-.film-times{
-    margin-top: 20px;
+  }
 }

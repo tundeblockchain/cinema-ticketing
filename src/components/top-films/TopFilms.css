@@ -1,34 +1,101 @@
-h1{
-    color: white;
+.topFilms {
+  padding: 3rem 2rem;
+  max-width: 1400px;
+  margin: 0 auto;
 }
 
-.topFilmsCards{
-    flex: 1;
+.topFilms .title {
+  font-size: 2rem;
+  font-weight: 700;
+  text-align: center;
+  background: var(--gradient-primary);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  margin-bottom: 2.5rem;
+  position: relative;
 }
 
-.cards {
-    display: inline-block;
-    margin: 10px 20px;
-    font-size: 18px;
-    cursor: pointer;
-    color: white;
-    box-shadow: 0px 25px 50px -12px rgba(0, 0, 0, 0.25);
-    border: 0.4mm solid rgba(0, 0, 0, 0.08);
-    border-radius: 3mm;
+.topFilms .title::after {
+  content: '';
+  position: absolute;
+  bottom: -10px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 60px;
+  height: 3px;
+  background: var(--gradient-primary);
+  border-radius: 2px;
 }
 
-.topFilms{
-    text-align: center;
-    margin-top: 10px;
+.topFilmsCards {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 2rem;
+  justify-items: center;
 }
 
-.cards-body{
-    box-shadow: 0px 25px 50px -12px rgba(0, 0, 0, 0.25);
-    border: 0.4mm solid rgba(0, 0, 0, 0.08);
-    border-radius: 0 0 3mm 3mm;
-    font-size: larger;
+.topFilmsCards .cards {
+  width: 100%;
+  max-width: 320px;
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  transition: all var(--transition-normal);
+  box-shadow: var(--shadow-md);
+  margin: 0;
 }
 
-.card-title{
-    font-size: larger;
+.topFilmsCards .cards:hover {
+  transform: translateY(-8px);
+  box-shadow: var(--shadow-lg), 0 0 40px rgba(99, 102, 241, 0.15);
+  border-color: rgba(99, 102, 241, 0.3);
+}
+
+.topFilmsCards .cards .card-img-top {
+  width: 100%;
+  height: 380px;
+  object-fit: cover;
+  transition: transform var(--transition-slow);
+}
+
+.topFilmsCards .cards:hover .card-img-top {
+  transform: scale(1.05);
+}
+
+.topFilmsCards .cards-body {
+  background: linear-gradient(135deg, var(--color-surface-elevated) 0%, var(--color-surface) 100%);
+  border: none;
+  padding: 1.25rem;
+  box-shadow: none;
+}
+
+.topFilmsCards .card-title {
+  font-family: 'Poppins', sans-serif;
+  font-size: 1.125rem;
+  font-weight: 600;
+  color: var(--color-text-primary);
+  text-align: center;
+  margin: 0;
+  line-height: 1.3;
+}
+
+@media (max-width: 768px) {
+  .topFilms {
+    padding: 2rem 1rem;
+  }
+
+  .topFilms .title {
+    font-size: 1.5rem;
+  }
+
+  .topFilmsCards {
+    grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+    gap: 1.5rem;
+  }
+
+  .topFilmsCards .cards .card-img-top {
+    height: 300px;
+  }
 }

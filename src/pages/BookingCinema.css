@@ -1,13 +1,178 @@
-.date-time-pick{
-    padding-bottom: 10px
+.booking-cinema {
+  min-height: calc(100vh - 80px);
+  padding: 2rem;
+  max-width: 1200px;
+  margin: 0 auto;
 }
 
-.btSeating{
-    margin-top: 20px;
+.booking-cinema .loader {
+  min-height: 60vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
 }
 
-.card-background{
-    background: rgb(46,19,113);
-    background: linear-gradient(42deg, rgba(46,19,113,1) 22%, rgba(9,251,211,1) 87%);
-    background: #130B2B;;
+.booking-cinema .loader h1 {
+  font-size: 1.25rem;
+  font-weight: 500;
+  color: var(--color-text-secondary);
+}
+
+.booking-cinema h1 {
+  font-family: 'Poppins', sans-serif;
+  font-size: 2rem;
+  font-weight: 700;
+  background: var(--gradient-primary);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  text-align: center;
+  margin-bottom: 1.5rem;
+}
+
+.booking-cinema .MuiCard-root {
+  background: var(--color-surface) !important;
+  border: 1px solid var(--color-border) !important;
+  border-radius: var(--radius-lg) !important;
+  box-shadow: var(--shadow-md) !important;
+}
+
+.booking-cinema .MuiCardContent-root {
+  padding: 2rem !important;
+}
+
+.booking-cinema .dropDownLabel {
+  font-family: 'Inter', sans-serif;
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: var(--color-text-secondary);
+  margin-bottom: 0.5rem;
+  display: block;
+}
+
+.booking-cinema .MuiFormControl-root {
+  width: 100%;
+}
+
+.booking-cinema .MuiInputBase-root {
+  background: var(--color-surface-elevated) !important;
+  border-radius: var(--radius-md) !important;
+}
+
+.booking-cinema .MuiOutlinedInput-notchedOutline {
+  border-color: var(--color-border) !important;
+}
+
+.booking-cinema .MuiInputBase-root:hover .MuiOutlinedInput-notchedOutline {
+  border-color: var(--color-primary) !important;
+}
+
+.booking-cinema .MuiInputBase-root.Mui-focused .MuiOutlinedInput-notchedOutline {
+  border-color: var(--color-primary) !important;
+  border-width: 2px !important;
+}
+
+.booking-cinema .MuiInputLabel-root {
+  color: var(--color-text-secondary) !important;
+}
+
+.booking-cinema .MuiSelect-select {
+  color: var(--color-text-primary) !important;
+}
+
+.date-time-pick {
+  margin-bottom: 1rem;
+}
+
+.date-time-pick .MuiInputBase-root {
+  width: 100%;
+}
+
+.btSeating {
+  margin-top: 1.5rem;
+  width: 100%;
+}
+
+.btSeating .btn,
+.booking-cinema .btSeating {
+  width: 100%;
+  padding: 0.875rem 1.5rem;
+  font-size: 1rem;
+  font-weight: 600;
+  color: white;
+  background: var(--gradient-primary);
+  border: none;
+  border-radius: var(--radius-md);
+  cursor: pointer;
+  transition: all var(--transition-normal);
+  box-shadow: var(--shadow-md);
+}
+
+.btSeating .btn:hover,
+.booking-cinema .btSeating:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-lg), var(--shadow-glow);
+}
+
+.film-times {
+  margin-top: 1rem;
+}
+
+.film-times .css-b62m3t-container {
+  width: 100%;
+}
+
+.film-times .css-13cymwt-control,
+.film-times .css-t3ipsp-control {
+  background: var(--color-surface-elevated);
+  border-color: var(--color-border);
+  border-radius: var(--radius-md);
+  min-height: 48px;
+}
+
+.film-times .css-t3ipsp-control {
+  border-color: var(--color-primary);
+  box-shadow: 0 0 0 1px var(--color-primary);
+}
+
+.film-times .css-1dimb5e-singleValue {
+  color: var(--color-text-primary);
+}
+
+.film-times .css-1nmdiq5-menu {
+  background: var(--color-surface-elevated);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+}
+
+.film-times .css-d7l1ni-option {
+  background: rgba(99, 102, 241, 0.1);
+}
+
+.film-times .css-tr4s17-option {
+  background: var(--color-primary);
+}
+
+.card-background {
+  background: var(--color-surface) !important;
+}
+
+.card-top {
+  background: var(--color-surface) !important;
+}
+
+@media (max-width: 768px) {
+  .booking-cinema {
+    padding: 1rem;
+  }
+
+  .booking-cinema h1 {
+    font-size: 1.5rem;
+  }
+
+  .booking-cinema .MuiCardContent-root {
+    padding: 1.5rem !important;
+  }
 }

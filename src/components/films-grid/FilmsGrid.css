@@ -1,10 +1,79 @@
-.cards {
-    display: inline-block;
-    margin: 10px 20px;
-    font-size: 18px;
-    cursor: pointer;
-    color: white;
-    box-shadow: 0px 25px 50px -12px rgba(0, 0, 0, 0.25);
-    border: 0.4mm solid rgba(0, 0, 0, 0.08);
-    border-radius: 3mm;
+.films-grid {
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 0 2rem 3rem;
+}
+
+.films-grid .loading-box {
+  min-height: 400px;
+}
+
+.films-grid .loading-box h1 {
+  font-size: 1.25rem;
+  font-weight: 500;
+  color: var(--color-text-secondary);
+}
+
+.films-grid .grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 2rem;
+}
+
+.films-grid .cards {
+  width: 100%;
+  max-width: 100%;
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  transition: all var(--transition-normal);
+  box-shadow: var(--shadow-md);
+  margin: 0;
+}
+
+.films-grid .cards:hover {
+  transform: translateY(-8px);
+  box-shadow: var(--shadow-lg), 0 0 40px rgba(99, 102, 241, 0.15);
+  border-color: rgba(99, 102, 241, 0.3);
+}
+
+.films-grid .cards .card-img-top {
+  width: 100%;
+  height: 350px;
+  object-fit: cover;
+  transition: transform var(--transition-slow);
+}
+
+.films-grid .cards:hover .card-img-top {
+  transform: scale(1.05);
+}
+
+@media (max-width: 1200px) {
+  .films-grid .grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+@media (max-width: 900px) {
+  .films-grid .grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1.5rem;
+  }
+}
+
+@media (max-width: 600px) {
+  .films-grid {
+    padding: 0 1rem 2rem;
+  }
+
+  .films-grid .grid {
+    grid-template-columns: 1fr;
+    max-width: 400px;
+    margin: 0 auto;
+  }
+
+  .films-grid .cards .card-img-top {
+    height: 280px;
+  }
 }
