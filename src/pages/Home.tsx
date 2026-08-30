@@ -6,6 +6,7 @@ import BeatLoader from "react-spinners/BeatLoader";
 import { useEffect, useState } from 'react';
 import { FilmEV } from "../types/types";
 import { loadFilms } from "../load/load";
+import './Home.css';
 
 function Home() {
   const [isInitialised, setInit] = useState(false);
@@ -35,10 +36,10 @@ function Home() {
   }, [data, isLoading, isInitialised]);
 
   return (
-    <div className="container">
+    <div className="container home-page">
       <div>
         <div className={isPageLoading ? 'loader' : 'hidden'}>
-          <BeatLoader color="#36d7b7" loading={isPageLoading} />
+          <BeatLoader color="#6366f1" loading={isPageLoading} />
         </div>
         <HomeCarousel loading={isPageLoading}></HomeCarousel>
         <TopFilms films={result} loading={isPageLoading}></TopFilms>

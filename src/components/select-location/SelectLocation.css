@@ -1,7 +1,44 @@
-/* .select-location {
-    color: aliceblue;
+.select-location {
+  width: 100%;
 }
 
-.dropDownLabel{
-    color: white;
-} */
+.select-location .MuiFormControl-root {
+  margin: 0 !important;
+  width: 100% !important;
+}
+
+.select-location .MuiInputLabel-root {
+  color: var(--color-text-secondary) !important;
+  font-family: 'Inter', sans-serif !important;
+}
+
+.select-location .MuiInputLabel-root.Mui-focused {
+  color: var(--color-primary) !important;
+}
+
+.select-location .MuiSelect-select {
+  background: var(--color-surface-elevated) !important;
+  color: var(--color-text-primary) !important;
+  border-radius: var(--radius-md) !important;
+}
+
+.select-location .MuiOutlinedInput-notchedOutline {
+  border-color: var(--color-border) !important;
+  border-radius: var(--radius-md) !important;
+}
+
+.select-location .MuiOutlinedInput-root:hover .MuiOutlinedInput-notchedOutline {
+  border-color: var(--color-primary) !important;
+}
+
+.select-location .MuiOutlinedInput-root.Mui-focused .MuiOutlinedInput-notchedOutline {
+  border-color: var(--color-primary) !important;
+  border-width: 2px !important;
+}
+
+.dropDownLabel {
+  color: var(--color-text-secondary) !important;
+  font-family: 'Inter', sans-serif !important;
+  font-size: 0.875rem !important;
+  font-weight: 600 !important;
+}

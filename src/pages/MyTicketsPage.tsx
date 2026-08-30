@@ -35,10 +35,10 @@ const MyTicketsPage = () => {
   }, [data, isLoading, isInitialised]);
 
   return (
-    <div>
+    <div className="my-tickets-page">
       <div className={isLoading ? 'loader' : 'hidden'}>
         <h1>Loading...</h1>
-        <BeatLoader color="#36d7b7" loading={isLoading} />
+        <BeatLoader color="#6366f1" loading={isLoading} />
       </div>
       <MyTickets loading={isLoading} tickets={tickets}></MyTickets>
     </div>

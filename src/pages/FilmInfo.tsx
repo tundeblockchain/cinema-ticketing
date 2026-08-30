@@ -22,41 +22,52 @@ const FilmInfo = () => {
   }, [isInitialised]);
 
   return (
-    <div>
-      <div className="filmInfo">
-        <div className='topSection'></div>
-        <div className='grid gap-10 md:grid-cols-5 lg:gap-10'>
-          <div className='midLeft'>
-            <Card style={{ width: '18rem' }} className='cards'>
-              <CardActionArea href='/booking/cinema'>
-                <Card.Img variant="top" src={result?.ImageUri} />
-                <Card.Body className='cards-body'>
-                  <Card.Title className='card-title'>Buy Tickets</Card.Title>
-                </Card.Body>
-              </CardActionArea>
-            </Card>
-          </div>
-          <div className='midRight col-span-4'>
-            <Card style={{ width: '50rem' }} className='cards'>
+    <div className="filmInfo">
+      <div className='film-layout'>
+        <div className='midLeft'>
+          <Card className='cards'>
+            <CardActionArea href='/booking/cinema'>
+              <Card.Img variant="top" src={result?.ImageUri} />
               <Card.Body className='cards-body'>
-                <h1>{result?.Title}</h1>
-                <h3>DIRECTORS</h3>
+                <Card.Title className='card-title'>Buy Tickets</Card.Title>
+              </Card.Body>
+            </CardActionArea>
+          </Card>
+        </div>
+        <div className='midRight'>
+          <Card className='cards'>
+            <Card.Body className='cards-body'>
+              <h1>{result?.Title}</h1>
+              <div className='film-meta-section'>
+                <h3>Directors</h3>
                 {result?.Directors.map((director, index) => (
-                  <p key={'director-square-' + index}>{director.Name}, </p>
+                  <p key={'director-square-' + index}>
+                    {director.Name}{index < (result?.Directors.length || 1) - 1 ? ', ' : ''}
+                  </p>
                 ))}
+              </div>
+              <div className='film-meta-section'>
                 <h3>Writers</h3>
                 {result?.Writers.map((writer, index) => (
-                  <p key={'writer-square-' + index}>{writer.Name}, </p>
+                  <p key={'writer-square-' + index}>
+                    {writer.Name}{index < (result?.Writers.length || 1) - 1 ? ', ' : ''}
+                  </p>
                 ))}
+              </div>
+              <div className='film-meta-section'>
                 <h3>Actors</h3>
                 {result?.Actors.map((actor, index) => (
-                  <p key={'actor-square-' + index}>{actor.Name}, </p>
+                  <p key={'actor-square-' + index}>
+                    {actor.Name}{index < (result?.Actors.length || 1) - 1 ? ', ' : ''}
+                  </p>
                 ))}
+              </div>
+              <div className='film-meta-section'>
                 <h3>Description</h3>
                 <p>{result?.Description}</p>
-              </Card.Body>
-            </Card>
-          </div>
+              </div>
+            </Card.Body>
+          </Card>
         </div>
       </div>
     </div>

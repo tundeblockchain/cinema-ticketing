@@ -43,16 +43,16 @@ const FilmsGrid = () => {
   };
 
   return (
-    <div>
+    <div className="films-grid">
       <div>
         <div className={isLoading ? 'loading-box' : 'hidden'}>
           <h1>Loading...</h1>
-          <BeatLoader color="#36d7b7" loading={isLoading} />
+          <BeatLoader color="#6366f1" loading={isLoading} />
         </div>
-        <div className={isLoading ? 'hidden' : 'grid grid-cols-4 gap-4'}>
+        <div className={isLoading ? 'hidden' : 'grid'}>
           {result.map((film, index) => (
             <div key={'film-square-' + index}>
-              <Card style={{ width: '18rem' }} className='cards'>
+              <Card className='cards'>
                 <CardActionArea onClick={() => routeChange(film)}>
                   <Card.Img variant="top" src={film.ImageUri} />
                 </CardActionArea>

@@ -6,7 +6,10 @@ import dayjs from 'dayjs';
 
 const MyTickets = ({loading, tickets}:{loading:boolean, tickets: TicketEV[]}) => {
     return (
-        <div className={loading? 'hidden' : ''}>
+        <div className={loading? 'hidden' : 'tickets-list'}>
+            <div className="tickets-header">
+                <h1>My Tickets</h1>
+            </div>
             <div>{tickets.length == 0 && 
                     <div className='no-tickets'>
                         <h1>You have no tickets!</h1>

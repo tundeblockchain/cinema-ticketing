@@ -249,7 +249,7 @@ const BookingCinema = () => {
     <div className='booking-cinema'>
       <div className={isPageLoading ? 'loader' : 'hidden'}>
         <h1>Loading...</h1>
-        <BeatLoader color="#36d7b7" loading={isPageLoading} />
+        <BeatLoader color="#6366f1" loading={isPageLoading} />
       </div>
       <div className={!isPageLoading ? 'grid grid-cols-6' : 'hidden'}>
         <div className='col-start-3 col-span-2'>
